@@ -93,7 +93,7 @@ shinyUI(pageWithSidebar(
                uiOutput("classificationModels")
                ),
       
-      tabPanel("Hacks",
+      tabPanel("Mods",
                selectInput("templateType","Select template for Citrus script",c("Original","Modified"),selected="Modified"),
                tags$hr(),
                tags$h4("The following options are relevant only if using the \"modified\" script file:",class="control-label"),              
@@ -115,7 +115,8 @@ shinyUI(pageWithSidebar(
       tabPanel("Run!",
                
                radioButtons("citrusRunAction", "Citrus Execution Options:",
-                            list("Quit GUI and run Citrus in R" = "qar","Write runCitrus.R file to data directory only" = "wrc")
+                            list("Quit GUI and run Citrus in R" = "qar","Write runCitrus.R file to data directory only" = "wrc"),
+                            "wrc"
                             ),
                tags$hr(),
                uiOutput("run"),

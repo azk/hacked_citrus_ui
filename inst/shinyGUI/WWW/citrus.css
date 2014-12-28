@@ -1,7 +1,7 @@
 body{
   font-size:12px;
-  background:linear-gradient(to right, #f29e9e , #6aa6cf);
-  /*background-image: url("mazal_momo.jpg")*/
+  /*background:linear-gradient(to right, #f29e9e , #6aa6cf);*/
+  background-image: url("coco.jpg")
 }
 
 input{

@@ -155,7 +155,6 @@ shinyServer(function(input, output) {
     if ((length(names(selectedFiles))<2)||(!all(unlist(lapply(selectedFiles,length))>1))){
       return(tagList(tags$b("Assign samples to groups to enable specification of cross-validation folds")))
     } else {
-      print(paste("FILES:",nFiles))
       return(tagList(numericInput(inputId="crossValidationFolds",label="Cross Validation Folds",value=1,min=1,max=nFiles)))
     }
   })
@@ -336,7 +335,6 @@ serialGroupSelectors = function(groupName,fileList){
 #############################################
 writeRunCitrusFile = function(input,templateFile=NULL){
   templateData = reactiveValuesToList(input)
-  print(templateData[c("scriptFlags","bothFeatureTypes")])
   templateData[["minimumClusterSizePercent"]] = templateData[["minimumClusterSizePercent"]]/100;
   templateData[["citrusVersion"]] = citrus.version();
   templateData[["preload"]]=preload
@@ -360,14 +358,16 @@ writeRunCitrusFile = function(input,templateFile=NULL){
   runCitrusTemplateFilePath = file.path(system.file(package="citrus"),"shinyGUI","runCitrus.template")
   if (templateData[["templateType"]] == "Modified") {
     print("Using modified template file")
-    runCitrusTemplateFilePath = file.path(system.file(package="hacked.citrus.ui"),"shinyGUI","modifiedCitrus.template")
-    print(runCitrusTemplateFilePath)
+    runCitrusTemplateFilePath = file.path(system.file(package="hacked.citrus.ui"),"shinyGUI","modifiedCitrus.template")    
   }
   if (exists("debugTemplate")&&(debugTemplate)){
     runCitrusTemplateFilePath = "/Users/rbruggner/Desktop/work/citrus/inst/shinyGUI/runCitrus.template" 
   }
   
-  brew(file=runCitrusTemplateFilePath,output=file.path(outputDir,"runCitrus.R"))
+  template.out.path <- file.path(outputDir,"runCitrus.R")
+  brew(file=runCitrusTemplateFilePath,output=template.out.path)
+  
+  print(paste("Citrus run script file saved to:",template.out.path))
   
 }
 
