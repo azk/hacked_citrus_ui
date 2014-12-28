@@ -11,6 +11,7 @@ if (!exists("dataDir")){
   dataDir = dirname(dataDirFile)
 } else {
   if (!file.exists(dataDir)){
+    remove(dataDir)
     stop(paste("Directory",dataDir,"not found. Exiting."))
   }
   dataDirFile = dataDir;
@@ -47,7 +48,9 @@ if (!preload){
   fileList = list.files(file.path(dataDir),pattern=".fcs",ignore.case=T)
   
   if (length(fileList)==0){
-    stop(paste0("\nNo FCS files found in  ",dataDir,". Please ensure files have a '.fcs' or '.FCS' extension."))
+    d.dir <- dataDir
+    remove(dataDir)
+    stop(paste0("\nNo FCS files found in  ",d.dir,". Please ensure files have a '.fcs' or '.FCS' extension."))
   }
   
   # This should get fixed...
@@ -64,6 +67,7 @@ fileColLength = sapply(fileCols,length)
 cat("\nNumber of parameters per file:\n")
 cat(paste0(fileList,": ",fileColLength,"\n"))
 if (length(unique(fileColLength))>1){
+  remove(dataDir)
   stop("\nAll FCS files must have the same number of channels.\n")
 }
   
