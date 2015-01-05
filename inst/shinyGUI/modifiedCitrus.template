@@ -60,7 +60,7 @@ cat(paste("medianColumns=c(",paste(sapply(templateData[["medianColumns"]],string
 }
 	
 	
-outputDir = paste(dataDirectory,'/',citrusRes$folderName,sep='')
+outputDir = citrusRes$folderName  # paste(dataDirectory,'/',citrusRes$folderName,sep='')
 if(!file.exists(outputDir)) {
   dir.create(outputDir,showWarnings = TRUE, recursive = TRUE)
 }
